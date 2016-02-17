@@ -1,0 +1,35 @@
+<script>
+  component.exports = {
+    computed: {
+      varname () {
+		 const o = this.get('data.vars')
+         const sortedArray = Object.keys(o).sort()
+		 const r = {}
+		 for(let key of sortedArray){
+		   r[key] = o[key]
+		 }
+		 return r
+      }
+    }
+  }
+</script>
+
+<ui-display title="Editing: {{data.ref}} {{data.vars.type}} {{data.vars.name}}">
+	<table width='100%'>
+	{{#each varname}}
+		<tr><td><ui-button icon='pencil' action='edit' params='{"varname":"{{@key}}"}'></ui-button> {{@key}}: </td>
+		{{#.}}
+			<td>
+			{{#if this.disp}}
+				{{#if this.ref}}<ui-button icon='' style='' action='debug' params='{"ref":"{{this.ref}}","varname":"{{@key}}"}'>{{this.ref}}</ui-button>{{/if}} {{this.disp}}
+			{{else}}
+				{{.}}
+			{{/if}}
+			</td>
+		{{/.}}
+		</tr>
+	{{else}}
+		<tr><td>No data...</td></tr>
+	{{/each}}
+	</table>
+</ui-display>

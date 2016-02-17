@@ -344,3 +344,13 @@
 	while(L.Remove(null))
 		continue
 	return L
+
+/proc/checkIfAssociative(list/L)
+	if(!istype(L) || !L.len)
+		return 0
+	for(var/thing in L)
+		if(isnum(thing))
+			return 0
+		if(L[thing] != null)
+			return 1
+	return 0
